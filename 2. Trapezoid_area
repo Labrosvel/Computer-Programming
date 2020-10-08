@@ -1,0 +1,6 @@
+large_base = input("What is the size of the larger base?")
+small_base = input("What is the size of the smaller base?")
+height = input("What is the height of the trapezoid?")
+
+area = (int(large_base)+int(small_base)*int(height)/2)
+print("The total area is: ", area)
