@@ -1,0 +1,5 @@
+w1 = input("Input the first word: ")
+w2 = input("Input the second word: ")
+w3 = input("Input the third word: ")
+concat = w1.title().strip() + w2.title().strip() + w3.title().strip()
+print("\nThe CamelCase form is:", concat)
