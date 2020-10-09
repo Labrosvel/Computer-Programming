@@ -1,0 +1,12 @@
+x = int(input("Insert the value of x: "))
+y = int(input("Insert the value of y: "))
+print()
+if x < y :
+    print( "No multiples of {} can be found between 0 and {}.".format(y,x) )
+else:
+    multiples_so_far = 0
+    for i in range(y,x+1) :
+        if i%y == 0 :
+            print('I found a new multiple of {}: {}'.format(y, i))
+            multiples_so_far += 1
+    print('\nIn total, I have found {} multiples of {} between 0 and {}.'.format(multiples_so_far, y, x))
