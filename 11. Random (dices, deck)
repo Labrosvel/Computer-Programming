@@ -1,0 +1,5 @@
+import random
+n = random.randint(2,12)
+print("The result of rolling two dices is", n)
+r = random.randint(0,51)
+print("The result of picking randomly a card from the deck is", r)
