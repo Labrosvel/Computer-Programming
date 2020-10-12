@@ -1,0 +1,12 @@
+x = input("Please enter your first word : ")
+y = input ("Please enter your second word : ")
+print("You entered :", str(x), " and ", str(y))
+print("The relational operators applying to your numbers are: ")
+print("x = y is ", x == y )
+print("x > y is ", x > y )
+print("x != y is ", x != y )
+print("x >= y is ", x >= y )
+print("x < y is ", x <= y )
+print("x <= y is ", x <= y )
+
+
