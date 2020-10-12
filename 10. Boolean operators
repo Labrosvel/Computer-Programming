@@ -1,0 +1,7 @@
+A = True
+B = False
+print("The value of the variable 'A' is ", A)
+print("The value of the variable 'B' is ", B)
+print("not A =", not A, "and not B =", not B)
+print("A and B =", A and B, ",",  "A and A =", A and A,",", "B and B =", B and B,
+      "\nA or B =", A or B,",", "A or A =", A or A,",", "B or B =", B or B)
