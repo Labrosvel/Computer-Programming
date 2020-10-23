@@ -1,0 +1,31 @@
+
+medals = {
+	'Brazil':{
+		'gold': 14,
+		'silver': 29,
+		'bronze': 29
+	},
+	'US':{
+		'gold': 40,
+		'silver': 44,
+		'bronze': 31
+	},
+	'UK':{
+		'gold': 64,
+		'silver': 39,
+		'bronze': 44
+	},
+	'Australia':{
+		'gold': 22,
+		'silver': 30,
+		'bronze': 29
+	},
+	'France':{
+		'gold': 9,
+		'silver': 5,
+		'bronze': 14
+	},
+}
+
+for country in medals.keys():
+	print(country,'has a total of',sum(medals[country].values()),'medals')
