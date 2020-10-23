@@ -1,0 +1,24 @@
+import math
+
+r = int ( input ( "Insert the cone radius: " ))
+h = int ( input ( "Insert the cone height: " ))  
+o = input ( 'What operation are you interested in? Type "S" for surface and "V" for volume: ' )
+
+def get_cone_surface_area(radius, height):
+  # Calculate l = Slant (Length of an edge from top of the cone to edge of a cone)
+  slant = math.sqrt(radius**2 + height**2)
+  # Calculate and return the Surface Area
+  return math.pi*radius*(radius+slant)
+
+def get_cone_volume(radius, height):
+  # Calculate and return the Volume
+  return (1/3)*(math.pi)*(radius**2)*height
+
+if o not in ["S", "V"]:
+  print(o, "is not a valid choice.")
+elif o == "S":
+  result = get_cone_surface_area(r, h)
+  print( "The surface area of the cone is:", result )
+else:
+  result = get_cone_volume(r, h)
+  print( "The volume of the cone is:", result )
