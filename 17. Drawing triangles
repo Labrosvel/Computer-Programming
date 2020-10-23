@@ -1,0 +1,30 @@
+side = 6
+for s1 in range (side):
+    s = ""
+    for s2 in range (side):
+        if s1 <= s2:
+            s = s + 'o'
+        else:
+            s = s + ' '
+    print(s)
+    
+side = 6
+for s1 in range (side):
+    s = ""
+    for s2 in range (side):
+        if s1 >= s2:
+            s = s + 'o'
+        else:
+            s = s + ' '
+    print(s)
+    
+    
+side = 6
+for s1 in range (side):
+    s = ""
+    for s2 in range (side):
+        if s1 >= s2:
+            s = s + ''
+        else:
+            s = s + 'o'
+    print(s)
