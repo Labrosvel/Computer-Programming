@@ -1,0 +1,17 @@
+myword = input ('Enter a word: ')
+print('You entered: ' + myword)
+myword = myword.upper()
+
+vowels = []
+for j in ['A', 'E', 'I', 'O', 'U']:
+    i = myword.find(j)
+    if i!=-1:
+        print('This word contains', str(j), 'at index position: ', i)
+        vowels.append(i)
+    else:
+        print('This word doesn\'t contain:', str(j))
+
+if len(vowels) == 0:
+    print('Actually this word doesn\'t contain any vowels at all!')
+else:
+    print('In total this word contains', len(vowels), 'different vowels!')
