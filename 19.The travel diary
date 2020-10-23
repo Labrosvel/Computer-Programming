@@ -1,0 +1,42 @@
+print('Use the following commands to manipulate the list:')
+print('  a - Add a new city')
+print('  r - Remove a city')
+print('  s - Show the city in the list')
+print('  q - Quit')
+
+cities = ['Paris', 'London', 'Rome', 'Berlin']
+
+next_cmd = input("Please insert your next command: ")
+
+def add_city_to_list( c ):
+    if c in cities:
+        print('{} is already present in the list.'.format(c))
+    else:
+        cities.append(c)
+
+def remove_city_from_list( c ):
+    if c not in cities:
+        print('{} not in the list.'.format(c))
+    else:
+        cities.remove(c)
+
+def show_cities():
+    print( 'The list contains {} cities'.format( str(len(cities ) )))
+    print(cities)
+
+while next_cmd != 'q':
+    
+    if next_cmd == 'a':
+        city_to_add = input("Please insert the name of the city to add: ")
+        add_city_to_list(city_to_add)
+    elif next_cmd == 'r' :
+        city_to_remove = input("Please insert the name of the city to remove: ")
+        remove_city_from_list(city_to_remove)
+    elif next_cmd == 's' :
+        show_cities()
+    else:
+        print("'{}' is not a valid command.".format(next_cmd))
+    
+    next_cmd = input("Please insert your next command: ")
+    
+print('Goodbye.')
