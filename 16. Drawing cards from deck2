@@ -1,0 +1,33 @@
+import random
+
+n = int(input("How many cards do you want to draw? "))
+
+cards = [True]*52
+
+for _ in range(n):
+	while True:
+		c = random.randint(0,51)
+		if cards[c]:
+			cards[c] = False
+			break
+	if c%13 <= 8:
+		value = str(c+2)
+	elif c%13 == 9:
+		value = 'Jack'
+	elif c%13 == 10:
+		value = 'Queen'
+	elif c%13 == 11:
+		value = 'King'
+	elif c%13 == 12:
+		value = 'Ace'
+
+	if c >= 0 and c <= 12:
+		suit = 'Diamonds'
+	elif c >= 13 and c <= 25:
+		suit = 'Clubs'
+	elif c >= 26 and c <= 38:
+		suit = 'Hearts'
+	elif c >= 39 and c <= 51:
+		suit = 'Spades'
+
+	print("You selected the card",value,'of',suit)
