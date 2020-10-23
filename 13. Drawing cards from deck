@@ -1,0 +1,13 @@
+import random
+
+n = int(input("How many cards do you want to draw? "))
+
+cards = [True]*52
+
+for _ in range(n):
+	while True:
+		c = random.randint(0,51)
+		if cards[c]:
+			cards[c] = False
+			break
+	print("You selected the card",c)
