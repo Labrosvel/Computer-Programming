@@ -1,0 +1,98 @@
+import json
+f = open('movies.json', 'r')
+movies = json.load(f)
+f.close()
+print('Successfully loaded the movies JSON file.')
+import random
+
+# Exploring the file
+type(movies)
+movies.keys()
+movies['movies'][0]
+
+# movies['movies'] is a list of dictionaries
+type(movies['movies'])
+len(movies['movies'])
+
+#Class Movie definition
+class Movie:
+    def __init__(self, **kwargs):
+        self.title = kwargs['Title']
+        self.year = kwargs['Year']
+        self.director = kwargs['Director']
+        self.actors = kwargs['Actors'].split(', ')
+        self.rating = kwargs['imdbRating']
+        self.genre = kwargs['Genre'].split(', ')
+        self.writer = kwargs['Writer']
+    
+    def __str__(self):
+        return ("The movie title is '{}', and took place on {} directed by {}".format(self.title, self.year, self.director))
+    
+    def actor_in(self, actor_name):
+        return actor_name in self.actors
+    
+    def similarity(self, other_movie):
+        sim_scoring = 0
+        #same rating
+        if self.rating == other_movie.rating:
+            sim_scoring += 1
+        #same director
+        if self.director == other_movie.director:
+            sim_scoring += 1
+        #with certain time span 
+        diff_year = abs(int(self.year) - int(other_movie.year))
+        if diff_year <= 5:
+            sim_scoring += (5-diff_year)           
+        #genre overlap
+        sim_scoring += len([g for g in self.genre if g in other_movie.genre])
+        return sim_scoring
+
+
+class MovieRecommender():
+    def __init__(self, movies):
+        self.movies = movies
+        
+    def recommend(self, movie):
+        max_sim_score = 10
+        to_recommend = ['There is no movie with score {} or higher'.format(max_sim_score)]
+        for other_movie in self.movies:
+            if (str(movie) != other_movie):
+                sim_score = movie.similarity(other_movie)
+                if sim_score == max_sim_score:
+                    to_recommend.append(other_movie)
+                if sim_score > max_sim_score:
+                    to_recommend = [other_movie]
+                    max_sim_score = sim_score
+        return (random.choice(to_recommend), max_sim_score)
+        
+movies_obj = []
+for movie in movies['movies']:
+    movies_obj.append(Movie(**movie))
+
+movies_queries_obj = []
+for movie in movies['movies']:
+    movies_queries_obj.append(Movie(**movie))
+
+mr = MovieRecommender(movies_obj)
+
+for query in movies_queries_obj:
+    recomm = mr.recommend(query)
+    print('Query: {}; Recommendation: {}; Score: {}'. format(
+        str(query), str(recomm[0]), recomm[1]
+        ))
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
