@@ -1,0 +1,46 @@
+import random
+
+def printCard(c):
+	if c%13 <= 8:
+		value = str((c%13)+2)
+	elif c%13 == 9:
+		value = 'Jack'
+	elif c%13 == 10:
+		value = 'Queen'
+	elif c%13 == 11:
+		value = 'King'
+	elif c%13 == 12:
+		value = 'Ace'
+
+	if c >= 0 and c <= 12:
+		suit = 'Diamonds'
+	elif c >= 13 and c <= 25:
+		suit = 'Clubs'
+	elif c >= 26 and c <= 38:
+		suit = 'Hearts'
+	elif c >= 39 and c <= 51:
+		suit = 'Spades'
+
+	print("You selected the card",value,'of',suit)
+
+
+def pickCard(cards):
+	while True:
+		c = random.randint(0,51)
+		if cards[c]:
+			cards[c] = False
+			return c, cards
+
+
+cards = [True]*52
+while True:
+	choice = input('Would you like to pick a card (y/n)? : ')
+	if choice not in ['y','n']:
+		print('Please answer "y" or "n".')
+		continue
+	if choice == 'n' or sum(cards) == 0:
+		print('Thanks for playing, bye!')
+		break
+	elif choice == 'y':
+		c, cards = pickCard(cards)	
+		printCard(c)
