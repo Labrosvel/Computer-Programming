@@ -1,0 +1,183 @@
+
+import json
+
+class Product:
+    def __init__(self, name, price, quantity, EAN, brand):
+        self.name = name 
+        self.price = price
+        self.quantity = quantity 
+        self.ean = EAN
+        self.brand = brand
+    
+    def to_json(self):
+        my_dict = {}
+        my_dict['type'] = 'Product'
+        my_dict['name'] = self.name
+        my_dict['price'] = self.price
+        my_dict['quantity'] = self.quantity
+        my_dict['EAN'] = self.ean
+        my_dict['brand'] = self.brand
+        out = json.dumps(my_dict)
+        return out
+            
+class Clothing(Product):
+    def __init__(self, name, price, quantity, EAN, brand, size, material):
+        super().__init__(name, price, quantity, EAN, brand)
+        self.size = size
+        self.material = material
+        
+    def to_json(self):
+        my_dict = {}
+        my_dict['type'] = 'Clothing'
+        my_dict['name'] = self.name
+        my_dict['price'] = self.price
+        my_dict['quantity'] = self.quantity
+        my_dict['EAN'] = self.ean
+        my_dict['brand'] = self.brand
+        my_dict['size'] = self.size
+        my_dict['material'] = self.material
+        out = json.dumps(my_dict)
+        return out
+
+class Food(Product):
+    def __init__(self, name, price, quantity, EAN, brand, expiry_date, gluten_free, suitable_for_vegans):
+        super().__init__(name, price, quantity, EAN, brand)
+        self.expiry_date = expiry_date
+        self.gluten_free = gluten_free
+        self.suitable_for_vegans = suitable_for_vegans
+        
+    def to_json(self):
+        my_dict = {}
+        my_dict['type'] = 'Food'
+        my_dict['name'] = self.name
+        my_dict['price'] = self.price
+        my_dict['quantity'] = self.quantity
+        my_dict['EAN'] = self.ean
+        my_dict['brand'] = self.brand
+        my_dict['expiry_date'] = self.expirty_date
+        my_dict['gluten_free'] = self.gluten_free
+        my_dict['suitable_for_vegans'] = self.suitable_for_vegans
+        out = json.dumps(my_dict)
+        return out
+
+class Drink(Product):
+    def __init__(self, name, price, quantity, EAN, brand, volume, alcohol_percentage):
+        super().__init__(name, price, quantity, EAN, brand)
+        self.volume = volume
+        self.alcohol = alcohol_percentage
+    
+    def to_json(self):
+        my_dict = {}
+        my_dict['type'] = 'Drink'
+        my_dict['name'] = self.name
+        my_dict['price'] = self.price
+        my_dict['quantity'] = self.quantity
+        my_dict['EAN'] = self.ean
+        my_dict['brand'] = self.brand
+        my_dict['volume'] = self.volume
+        my_dict['alcohol_percentage'] = self.alcohol_percentage
+        out = json.dumps(my_dict)
+        return out
+
+
+class ShoppingCart:
+    def __init__(self, list = []):
+        self.list = list
+    def addProduct(self, p):
+        return self.list.append(p)
+    def removeProduct(self, p):
+        return self.list.remove(p)
+    def changeProductQuantity(self,p,q):
+        for obj in self.list:
+            if obj.name == p:
+                obj.quantity = q
+    def showSummary(self):
+        for obj in self.list:
+            my_list = obj.to_json()
+            print(my_list)
+    
+        
+my_cart = ShoppingCart()
+
+print('The program has started.')
+terminated = False
+while terminated == False:
+    c = input('Insert your next command (H for help):')
+            
+    if str(c).upper() == 'A':
+        print('Adding a new product:')
+        t = input('Insert its type: ')
+        name = input('Insert its name: ')
+        price = input('Insert its price (£): ')
+        quantity = input('Insert its quantity: ')
+        EAN_identifier = input('Insert its EAN code: ')
+        brand = input('Insert its brand: ')
+        if t.lower() == 'clothing':
+            size = input('Insert its size: ')
+            material = input('Insert its material: ')
+            obj = Clothing(name, price, quantity, EAN_identifier, brand, size, material)
+        elif t.lower() == 'food':
+            expiry_date = input('Insert its expiry date: ')
+            gluten_free = input('Insert whether is gluten free or not: ')
+            suitable_for_vegans = input('Insert whether is suitable for vegeterians or not: ')
+            obj = Food(name, price, quantity, EAN_identifier, brand, expiry_date, gluten_free, suitable_for_vegans)
+        elif t.lower() == 'drink':
+            volume = input('Insert its volume in ml: ')
+            alcohol_percentage = input('Insert its alcohol level: ')
+            obj = Drink(name, price, quantity, EAN_identifier, brand, volume, alcohol_percentage)
+        my_cart.addProduct(obj)
+        print('The product {} has been added to the cart'.format(name))
+        print('The cart contains {} products'.format(len(my_cart.list)))
+        
+    elif str(c).upper() == 'R':
+        item = input('What is the name of the product you want to remove?: ')
+        for obj in my_cart.list:
+            if item.lower() == obj.name:
+                my_cart.removeProduct(obj)
+        print('The cart contains {} products'.format(len(my_cart.list)))
+        
+    elif str(c).upper() == 'S':
+        print(my_cart.showSummary())
+    
+    elif str(c).upper() == 'Q':
+        p = input('What is the name of the product you want to change?: ')
+        q = input('What is the new quantity of the product?: ')
+        my_cart.changeProductQuantity(p, q)
+    
+    
+    elif str(c).upper() == 'H':
+        print('The program supports the following commands:')
+        print('[A] - Add a new product to the cart')
+        print('[R] - Remove a product from the cart')
+        print('[S] - Print a summary of the cart')
+        print('[Q] - Change the quantity of a product')
+        print('[E] - Export a JSON version of the cart')
+        print('[C] - Cancel the current operation')
+        print('[T] - Terminate the program')
+        print('[H] - List the supported commands')
+    
+    elif str(c).upper() == 'T':
+        terminated = True
+    
+    else:
+        print('Command not recognised. Please try again.')
+    
+
+
+print('Goodbye!')
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+    
