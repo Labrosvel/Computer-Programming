@@ -1,0 +1,57 @@
+import csv as csv
+import numpy as np
+import matplotlib.pyplot as plt
+
+with open ('gender.csv', 'r') as file1:
+    csv_data = csv.reader(file1)
+    gender_l = list(csv_data)
+with open('survived.csv', 'r') as file2:
+    csv_data2 = csv.reader(file2)
+    survived_l = list(csv_data2)
+with open('titanicNumeric.csv', 'r') as file3:
+    csv_data3 = csv.reader(file3)
+    titanic_l = list(csv_data3)
+
+gender_a = np.array(gender_l)
+survived_a = np.array(survived_l)
+titanic_a = np.array(titanic_l)
+
+gender_a.shape
+survived_a.shape
+titanic_a.shape
+
+#Calculate mean and std for the fare of passengers
+fare_avg = titanic_a[:, 1].astype(float).mean(axis=0)
+fare_avg = round(fare_avg, 2)
+fare_avg
+fare_std = titanic_a[:, 1].astype(float).std(axis=0)
+fare_std = round(fare_std,2)
+fare_std
+
+#Calculate number of males and female passengers
+np.unique(gender_a, return_counts=True)
+
+#Calculate number of survivors
+np.unique(survived_a, return_counts=True )
+
+#Select the rows of survivors which matches female passengers
+gender_a == 'female'
+survived_a[gender_a == 'female']
+fem_survived1 = np.unique(survived_a[gender_a == 'female'], return_counts=True)
+fem_survived1
+fem_survived2 = np.count_nonzero(survived_a[gender_a == 'female'] == '1')
+fem_survived2
+
+#Create a histogram of the fare values
+fare_a = titanic_a[:,1].astype(float)
+plt.hist(fare_a, bins=30)
+
+
+
+
+
+
+
+
+
+
