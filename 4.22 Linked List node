@@ -1,0 +1,69 @@
+class Node:
+	def __init__(self, cargo=None, next_node=None):
+		self.cargo = cargo
+		self.next_node = next_node
+	def __str__(self):
+		return str(self.cargo)
+
+def parseList(node):
+	while node is not None:
+		print(node)
+		node = node.next_node
+
+def addToList(head, value, pos):
+	if head is None:
+		print('The list is empty, pass a non-empty list!')
+		return
+	if pos == 0:
+		print('Can not add to the head. Append directly instead!')
+		return
+	c = 0
+	node = head
+	while c != pos:
+		c += 1
+		past_node = node
+		node = node.next_node
+		if node is None:
+			past_node.next_node = Node('',None)
+			node = past_node.next_node
+	if node.cargo == '':
+		node.cargo = value
+	else:
+		past_node.next_node = Node(value,node)
+
+def removeFromList(head, pos):
+	if head is None:
+		print('The list is empty, pass a non-empty list!')
+		return None
+	if pos == 0:
+		print('Can not remove the head. Break directly instead!')
+		return None
+	else:
+		c=0
+		node = head
+		while c!=pos:
+			c+=1
+			past_node = node
+			node = node.next_node
+			if node is None:
+				print('The list is not that long!')
+				return None
+
+		past_node.next_node = node.next_node
+		return node.cargo
+
+node1 = Node(1)
+node2 = Node(2)
+node1.next_node = node2
+
+node3 = Node(3)
+node2.next_node = node3
+
+node4 = Node(4)
+node3.next_node = node4
+
+#addToList(node1,7,3)
+#removeFromList(node1, 4)
+
+parseList(node1)
+
