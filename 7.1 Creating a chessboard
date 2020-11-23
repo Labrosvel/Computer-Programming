@@ -1,0 +1,23 @@
+'''
+Generate a chessboard in a form of csv file
+'''
+import csv
+
+height = int(input('Input the height: '))
+width = int(input('Input the width: '))
+c1 = input('Input the first character: ')
+c2 = input('Input the second character: ')
+
+csv_string = ''
+for h in range(height):
+    l = []
+    for w in range(width):
+        if (w+h) % 2 == 0:
+            l.append( c1 ) 
+        else: 
+            l.append( c2 )
+    joined = ', '.join(l)
+    csv_string = csv_string + joined + '\n'
+    
+print('Here is the CSV string: ')
+print(csv_string)
