@@ -1,0 +1,78 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+titanic = pd.read_csv('titanic_lab9.csv')
+
+#Make passengerId the index column
+titanic1 = titanic.set_index('PassengerId')
+titanic1
+
+#Explore the dataframe
+titanic1.head()
+titanic1.columns
+titanic1.dtypes
+
+#Obtain the Fare column, sort it and plot the Fare values
+tit_fare = titanic1['Fare']
+tit_fare
+tit_fare = tit_fare.sort_values()
+tit_fare
+tit_fare.plot.hist(bins=50)
+tit_tick = titanic1[['Pclass', 'Fare']]
+tit_tick
+tick_cl1 = tit_tick[tit_tick['Pclass'] == 1]
+tick_cl2 = tit_tick[tit_tick['Pclass'] == 2]
+tick_cl3 = tit_tick[tit_tick['Pclass'] == 3]
+plt.hist(tick_cl1['Fare'], bins=50, alpha=0.5, label='1st class')
+plt.hist(tick_cl2['Fare'], bins=50, alpha=0.7, label='2nd class')
+plt.hist(tick_cl3['Fare'], bins=50, alpha=0.9, label='3rd class')
+
+#Reject all the rows with a fare higher that £300
+tit_fare
+tit_fare[tit_fare<300]
+
+#7.Look at the values in the categorical columns
+#Obtaing the frequency of values
+titanic1.dtypes
+titanic1['Survived'].value_counts()
+titanic1['Pclass'].value_counts()
+titanic1['Sex'].value_counts()
+titanic1['SibSp'].value_counts()
+titanic1['Cabin'].unique()
+titanic1['Embarked'].value_counts()
+
+#8.Checking for missing values and providing summary by column(category)
+#and by passenger summarising how many null values each one has
+titanic1.info()
+titanic1.isnull().sum()
+titanic1.isnull().sum(axis=1).value_counts()
+
+#Find if there's correlation between the age and the class of passengers
+#Keep in mind that the Age column has Null values. Exlude them
+titanic1.Age.isnull().sum()
+titanic1[titanic1.Pclass == 1].Age.describe()
+titanic1[titanic1.Pclass == 2].Age.describe()
+titanic1[titanic1.Pclass == 3].Age.describe()
+
+#Find the median age by class and replace the corresponding missing values
+Age_med1 = titanic1[titanic1.Pclass == 1].Age.median()
+Age_med2 = titanic1[titanic1.Pclass == 2].Age.median()
+Age_med3 = titanic1[titanic1.Pclass == 3].Age.median()
+
+Age_med1
+titanic1[titanic1.Pclass == 1].Age.isnull().sum()
+titanic1[titanic1.Pclass == 1].Age.fillna(Age_med1)
+
+titanic1[titanic1.Pclass == 1].Age.head(30)
+
+#Create a new column for minors under 18 and parch=0(unaccompanied minors)
+titanic1[(titanic1['Age']<18) & (titanic1['Parch'] ==0)]
+
+
+
+
+
+
+
+
+
