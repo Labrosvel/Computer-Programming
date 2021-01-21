@@ -1,0 +1,56 @@
+import numpy as np
+import pandas as pd
+
+# Loading the data
+players = pd.read_csv('players_stats_by_season_full_details.csv')
+players.head()
+
+# Q5 Create a new table called hawks consisting of just the data for the team ‘AH' (provide your script as the answer)
+hawks = players[players.Team == 'AH']
+hawks # note: no team with that name in the dataset
+
+# Q9 
+# For the NBA, Plot a scatterplot of Weight vs Height of players, and color it according to nationality. Who are some
+# of the biggest players?
+players_NBA = players[players.League == 'NBA']
+players_NBA.head()
+
+import seaborn as sns 
+import matplotlib as plt 
+sns.lmplot('weight_kg', 'height_cm', data=players_NBA, hue='nationality', fit_reg=False) 
+plt.show() # Didn't manage to get an output of value
+
+# Q10
+# Plot a graph to see how much have important metrics such as Points (PTS), Assists(AST), Rebounds(REB) actually 
+# changed over time in the Euroleague?
+Euroleague = players[players.League == 'Euroleague'] 
+Euroleague.head()
+
+# Descriptive statistics for Euroleague per season last 20 years
+Euroleague[['Season','PTS','AST','REB']].groupby('Season').mean()
+
+# graph for the time series
+Euroleague_stats = Euroleague[['Season','PTS','AST','REB']].groupby('Season').mean()
+import matplotlib.pyplot as plt
+plt.figure(1, figsize=(16,6))
+plt.subplot(1,3,1)
+Euroleague_stats.PTS.plot()
+plt.title('Average PTS per season')
+plt.subplot(1,3,2)
+Euroleague_stats.AST.plot()
+plt.title('Average AST per season')
+plt.subplot(1,3,3)
+Euroleague_stats.REB.plot()
+plt.title('Average REB per season')
+plt.show()
+
+# Q11
+# Find out the top five nationalities with most players among all leagues, Create an appropriate visualization to show 
+# the distribution of players from these five nations among different leagues, write one to two sentences to describe 
+# why you have chosen this type of visualization and some insight.
+
+# Top 5 Nationalities with most players
+players[['nationality', 'League']].groupby('nationality').count().sort_values(by=['League'], ascending=False).head()
+top5nations = players[players.nationality.isin(['United States', 'Serbia','Croatia','Lithuania','Spain'])]
+top5nations[['nationality', 'League']]
+
